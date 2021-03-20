@@ -1,3 +1,6 @@
-// alert('Hola');
-// let currentResult  //Declaración de una variable
-let currentResult = 0; // Variable está declarada y también está definida
+let currentResult = 0;
+
+// currentResult = currentResult + 10;
+currentResult = ((currentResult + 10) * 3) / 2 - 1;
+
+outputResult(currentResult, 'prueba');
