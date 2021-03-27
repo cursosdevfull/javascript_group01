@@ -2,27 +2,44 @@ const defaultResult = 0;
 let currentResult = defaultResult;
 let logEntries = [];
 
-function calculationResult(calculationType) {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-
-  let mathOperator;
-  if (calculationType === 'ADD') {
-    currentResult += enteredNumber;
-    mathOperator = '+';
-  } else if (calculationType === 'SUBTRACT') {
-    currentResult -= enteredNumber;
-    mathOperator = '-';
-  } else if (calculationType === 'MULTIPLY') {
-    currentResult -= enteredNumber;
-    mathOperator = '*';
-  } else if (calculationType === 'DIVIDE') {
-    currentResult -= enteredNumber;
-    mathOperator = '/';
+function calculationResult(calculationType = 'SUBTRACT') {
+  if (
+    calculationType !== 'ADD' &&
+    calculationType !== 'SUBTRACT' &&
+    calculationType !== 'MULTIPLY' &&
+    calculationType !== 'DIVIDE'
+  ) {
+    return;
   }
 
-  createAndWriteOutput(mathOperator, initialResult, enteredNumber);
-  writeToLog(calculationType, initialResult, enteredNumber, currentResult);
+  if (
+    calculationType === 'ADD' ||
+    calculationType === 'SUBTRACT' ||
+    calculationType === 'MULTIPLY' ||
+    calculationType === 'DIVIDE'
+  ) {
+    const enteredNumber = getUserNumberInput();
+    const initialResult = currentResult;
+
+    let mathOperator;
+    if (calculationType === 'ADD') {
+      currentResult += enteredNumber;
+      mathOperator = '+';
+    } else if (calculationType === 'SUBTRACT') {
+      currentResult -= enteredNumber;
+      mathOperator = '-';
+    } else if (calculationType === 'MULTIPLY') {
+      currentResult -= enteredNumber;
+      mathOperator = '*';
+    } else if (calculationType === 'DIVIDE') {
+      currentResult -= enteredNumber;
+      mathOperator = '/';
+    }
+
+    createAndWriteOutput(mathOperator, initialResult, enteredNumber);
+    writeToLog(calculationType, initialResult, enteredNumber, currentResult);
+    s;
+  }
 }
 
 function writeToLog(
@@ -63,7 +80,7 @@ function multiply() {
 }
 
 function divide() {
-  calculationResult('DIVIDE');
+  calculationResult('DIVIDE2');
 }
 
 addBtn.addEventListener('click', add);
