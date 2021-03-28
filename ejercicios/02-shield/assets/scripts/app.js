@@ -26,6 +26,7 @@ if (isNaN(choseMaxLife) || choseMaxLife <= 0) {
 let currentMonsterHealth = choseMaxLife;
 let currentPlayHealth = choseMaxLife;
 let hasBonusLife = true;
+let hasShield = true;
 
 adjustHealthBars(choseMaxLife);
 
