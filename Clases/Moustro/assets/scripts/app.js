@@ -5,6 +5,11 @@ const HEAL_VALUE = 20;
 
 const MODE_ATTACK = 'ATTACK';
 const MODE_STRONG_ATTACK = 'STRONG_ATTACK';
+const LOG_EVENT_PLAYER_ATTACK = 'PLAYER_ATTACK';
+const LOG_EVENT_PLAYER_STRONG_ATTACK = 'PLAYER_STRONG_ATTACK';
+const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
+const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
+const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 
 const enteredValue = prompt(
   'Ingrese el máximo de vida para el jugador y para mounstro',
@@ -12,6 +17,7 @@ const enteredValue = prompt(
 );
 
 let choseMaxLife = parseInt(enteredValue);
+let battleLog = [];
 
 if (isNaN(choseMaxLife) || choseMaxLife <= 0) {
   choseMaxLife = 100;
@@ -22,6 +28,24 @@ let currentPlayHealth = choseMaxLife;
 let hasBonusLife = true;
 
 adjustHealthBars(choseMaxLife);
+
+function writeToLog(ev, val, monsterHealth, playerHealth) {
+  let logEntry = {
+    event: ev,
+    value: val,
+    finalMonsterHealth: monsterHealth,
+    finalPlayerHealth: playerHealth,
+  };
+
+  if (ev === LOG_EVENT_PLAYER_ATTACK || ev === LOG_EVENT_PLAYER_STRONG_ATTACK) {
+    // logEntry["target"] ="MONSTER"
+    logEntry.target = 'MONSTER';
+  } else if (ev === LOG_EVENT_MONSTER_ATTACK || ev === LOG_EVENT_PLAYER_HEAL) {
+    logEntry.target = 'PLAYER';
+  }
+
+  battleLog.push(logEntry);
+}
 
 function reset() {
   currentPlayHealth = choseMaxLife;
@@ -35,6 +59,13 @@ function endRound() {
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
   currentPlayHealth -= playerDamage;
 
+  writeToLog(
+    LOG_EVENT_MONSTER_ATTACK,
+    playerDamage,
+    currentMonsterHealth,
+    currentPlayHealth
+  );
+
   if (currentPlayHealth <= 0 && hasBonusLife) {
     hasBonusLife = false;
     removeBonusLife();
@@ -45,10 +76,28 @@ function endRound() {
 
   if (currentMonsterHealth <= 0 && currentPlayHealth > 0) {
     alert('Ganó');
+    writeToLog(
+      LOG_EVENT_GAME_OVER,
+      'JUGADOR GANÓ',
+      currentMonsterHealth,
+      currentPlayHealth
+    );
   } else if (currentPlayHealth <= 0 && currentMonsterHealth > 0) {
     alert('Perdió');
+    writeToLog(
+      LOG_EVENT_GAME_OVER,
+      'JUGADOR PERDIÓ',
+      currentMonsterHealth,
+      currentPlayHealth
+    );
   } else if (currentMonsterHealth <= 0 && currentPlayHealth <= 0) {
     alert('Empate');
+    writeToLog(
+      LOG_EVENT_GAME_OVER,
+      'EMPATE',
+      currentMonsterHealth,
+      currentPlayHealth
+    );
   }
 
   if (
@@ -95,9 +144,20 @@ function healPlayerHandler() {
 
   increasePlayerHealth(healValue);
   currentPlayHealth += healValue;
+  writeToLog(
+    LOG_EVENT_PLAYER_HEAL,
+    healValue,
+    currentMonsterHealth,
+    currentPlayHealth
+  );
   endRound();
+}
+
+function printLogHandler() {
+  console.log(battleLog);
 }
 
 attackBtn.addEventListener('click', attackHandler);
 strongAttackBtn.addEventListener('click', strongAttackHandler);
 healBtn.addEventListener('click', healPlayerHandler);
+logBtn.addEventListener('click', printLogHandler);
