@@ -1,3 +1,13 @@
+console.log(username);
+var username = 'sergio.hidalgo';
+
+console.log(password);
+let password = '12345';
+
+/* var username;
+console.log(username);
+username = 'sergio.hidalgo'; */
+
 /* var name = 'Sergio';
 var name = 'Pedro'; */
 /* let name = 'Sergio';
@@ -15,7 +25,7 @@ console.log(name);
 //console.log(name, age); */
 
 // var name = 'Sergio';
-let hobbies;
+/* let hobbies;
 
 if (name === 'Sergio') {
   hobbies = ['cocinar', 'aprender', 'enseñar'];
@@ -31,3 +41,4 @@ function getInfoUser() {
 
 console.log(name);
 getInfoUser();
+ */
