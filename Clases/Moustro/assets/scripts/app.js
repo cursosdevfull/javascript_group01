@@ -52,12 +52,6 @@ function writeToLog(ev, val, monsterHealth, playerHealth) {
       logEntry = {};
   }
 
-  /*   if (ev === LOG_EVENT_PLAYER_ATTACK || ev === LOG_EVENT_PLAYER_STRONG_ATTACK) {
-    logEntry.target = 'MONSTER';
-  } else if (ev === LOG_EVENT_MONSTER_ATTACK || ev === LOG_EVENT_PLAYER_HEAL) {
-    logEntry.target = 'PLAYER';
-  } */
-
   battleLog.push(logEntry);
 }
 
@@ -173,7 +167,81 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  /*   for (let indice = 0; indice < 3; indice++) {
+    console.log(indice);
+  } */
+  /*   for (let indice = 10; indice > 0; indice--) {
+    console.log(indice);
+  } */
+
+  /*   const totalRecordsLog = battleLog.length;
+  for (let indice = 0; indice < totalRecordsLog; indice++) {
+    console.log(battleLog[indice]);
+  } */
+
+  /*   for (const logEntry of battleLog) {
+    console.log(logEntry);
+  } */
+  /*  let index = 0;
+  for (const logEntry of battleLog) {
+    console.log(`${index}`);
+
+    for (const key in logEntry) {
+      console.log(`${key} => ${logEntry[key]}`);
+            console.log(key);
+      console.log(logEntry[key]);
+    }
+
+    index++;
+  } */
+
+  /*  let finished = false;
+  const randomNumbers = [];
+  while (!finished) {
+    const numberGenerated = Math.random();
+    randomNumbers.push(numberGenerated);
+    finished = numberGenerated > 0.5 ? true : false;
+    
+  }
+  console.log(randomNumbers); */
+
+  /*   let index = 0;
+  while (index < 3) {
+    console.log(index++);
+    // index+=1
+  } */
+
+  /*   let index = 0;
+  do {
+    console.log(index++);
+  } while (index < 3); */
+
+  /*  let index = 0;
+  while (index < 3) {
+    for (let ind = 0; ind < 5; ind++) {
+      if (ind >= 3) {
+        // break;
+        continue;
+      }
+      console.log(ind);
+    }
+    index++;
+  } */
+
+  let index = 0;
+  bucle01: do {
+    console.log(`outer = ${index}`);
+    bucle02: for (let ind = 0; ind < 5; ind++) {
+      if (ind === 3) {
+        // break bucle01;
+        continue bucle01; // PELIGROSO
+      }
+      console.log(`inner = ${ind}`);
+    }
+    index++;
+  } while (index < 3);
+
+  // console.log(battleLog);
 }
 
 attackBtn.addEventListener('click', attackHandler);
