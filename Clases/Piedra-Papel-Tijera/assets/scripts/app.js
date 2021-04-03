@@ -11,5 +11,8 @@ const game = {
   },
 };
 
+console.log(typeof startGame);
+console.dir(startGame);
+
 startBtn.addEventListener('click', game.start);
 // startGame();
