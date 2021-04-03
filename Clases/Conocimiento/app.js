@@ -1,8 +1,13 @@
+'use strict';
+const age = 40;
+
+// let undefined = 5;
+
 console.log(username);
 var username = 'sergio.hidalgo';
 
-console.log(password);
 let password = '12345';
+console.log(password);
 
 /* var username;
 console.log(username);
