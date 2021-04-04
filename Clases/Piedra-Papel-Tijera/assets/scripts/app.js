@@ -1,7 +1,11 @@
 'use strict';
 
-const startGame = function start() {
+const startGame = function () {
   console.log('Game is starting');
 };
 
-startBtn.addEventListener('click', startGame);
+console.dir(startGame);
+
+startBtn.addEventListener('click', function () {
+  console.log('Game is starting...');
+});
