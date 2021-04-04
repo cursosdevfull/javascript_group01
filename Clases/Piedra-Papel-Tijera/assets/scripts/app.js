@@ -24,7 +24,8 @@ const getPlayerChoice = () => {
       `La selección es solo ${ROCK}, ${PAPER} o ${SCISSOR}. Hemos escogido ${DEFAULT_USER_CHOICE} por usted`
     );
 
-    return DEFAULT_USER_CHOICE;
+    // return DEFAULT_USER_CHOICE;
+    return;
   }
 
   return selection;
@@ -36,7 +37,7 @@ const getComputerChoice = () => {
   return randomValue < 0.34 ? ROCK : randomValue < 0.67 ? PAPER : SCISSOR;
 };
 
-const getWinner = (cChoice, pChoice) =>
+const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) =>
   cChoice === pChoice
     ? RESULT_DRAW
     : (pChoice === ROCK && cChoice === SCISSOR) ||
@@ -44,18 +45,6 @@ const getWinner = (cChoice, pChoice) =>
       (pChoice === SCISSOR && cChoice === PAPER)
     ? RESULT_PLAYER_WIN
     : RESULT_COMPUTER_WIN;
-
-/*   if (cChoice === pChoice) {
-    return RESULT_DRAW;
-  } else if (
-    (pChoice === ROCK && cChoice === SCISSOR) ||
-    (pChoice === PAPER && cChoice === ROCK) ||
-    (pChoice === SCISSOR && cChoice === PAPER)
-  ) {
-    return RESULT_PLAYER_WIN;
-  } else {
-    return RESULT_COMPUTER_WIN;
-  } */
 
 let gameIsRunning = false;
 
@@ -68,7 +57,13 @@ startBtn.addEventListener('click', () => {
   console.log('Game is starting');
   const playerChoice = getPlayerChoice();
   const computerChoice = getComputerChoice();
-  const winner = getWinner(computerChoice, playerChoice);
+  let winner;
+
+  if (playerChoice) {
+    winner = getWinner(computerChoice, playerChoice);
+  } else {
+    winner = getWinner(computerChoice);
+  }
 
   let message = `Su elección: ${playerChoice}, la elección de la computadora: ${computerChoice}.\nResultado = `;
 
