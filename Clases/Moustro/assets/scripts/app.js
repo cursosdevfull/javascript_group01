@@ -2,6 +2,7 @@ const ATTACK_VALUE = 14;
 const MONSTER_ATTACK_VALUE = 15;
 const STRONG_ATTACK_VALUE = 17;
 const HEAL_VALUE = 20;
+const DEFAULT_LIFES = 100;
 
 const MODE_ATTACK = 'ATTACK';
 const MODE_STRONG_ATTACK = 'STRONG_ATTACK';
@@ -11,12 +12,32 @@ const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
 const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 
-const enteredValue = prompt(
-  'Ingrese el máximo de vida para el jugador y para mounstro',
-  '100'
-);
+function getMaxLifesValues() {
+  const enteredValue = prompt(
+    'Ingrese el máximo de vida para el jugador y para mounstro',
+    `${DEFAULT_LIFES}`
+  );
 
-let choseMaxLife = parseInt(enteredValue);
+  const parsedLife = parseInt(enteredValue, 10);
+  if (isNaN(parsedLife) || parsedLife <= 0) {
+    throw { message: 'Valor inválido ingresado por el usuario' };
+  }
+
+  return parsedLife;
+}
+
+let choseMaxLife;
+
+try {
+  choseMaxLife = getMaxLifesValues();
+} catch (error) {
+  console.log(error);
+  choseMaxLife = DEFAULT_LIFES;
+  alert(
+    `Ocurrió un error y se usará el valor por defecto de ${DEFAULT_LIFES} para las vidas`
+  );
+}
+
 let battleLog = [];
 
 if (isNaN(choseMaxLife) || choseMaxLife <= 0) {
@@ -51,12 +72,6 @@ function writeToLog(ev, val, monsterHealth, playerHealth) {
     default:
       logEntry = {};
   }
-
-  /*   if (ev === LOG_EVENT_PLAYER_ATTACK || ev === LOG_EVENT_PLAYER_STRONG_ATTACK) {
-    logEntry.target = 'MONSTER';
-  } else if (ev === LOG_EVENT_MONSTER_ATTACK || ev === LOG_EVENT_PLAYER_HEAL) {
-    logEntry.target = 'PLAYER';
-  } */
 
   battleLog.push(logEntry);
 }
@@ -173,7 +188,81 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  /*   for (let indice = 0; indice < 3; indice++) {
+    console.log(indice);
+  } */
+  /*   for (let indice = 10; indice > 0; indice--) {
+    console.log(indice);
+  } */
+
+  /*   const totalRecordsLog = battleLog.length;
+  for (let indice = 0; indice < totalRecordsLog; indice++) {
+    console.log(battleLog[indice]);
+  } */
+
+  /*   for (const logEntry of battleLog) {
+    console.log(logEntry);
+  } */
+  /*  let index = 0;
+  for (const logEntry of battleLog) {
+    console.log(`${index}`);
+
+    for (const key in logEntry) {
+      console.log(`${key} => ${logEntry[key]}`);
+            console.log(key);
+      console.log(logEntry[key]);
+    }
+
+    index++;
+  } */
+
+  /*  let finished = false;
+  const randomNumbers = [];
+  while (!finished) {
+    const numberGenerated = Math.random();
+    randomNumbers.push(numberGenerated);
+    finished = numberGenerated > 0.5 ? true : false;
+    
+  }
+  console.log(randomNumbers); */
+
+  /*   let index = 0;
+  while (index < 3) {
+    console.log(index++);
+    // index+=1
+  } */
+
+  /*   let index = 0;
+  do {
+    console.log(index++);
+  } while (index < 3); */
+
+  /*  let index = 0;
+  while (index < 3) {
+    for (let ind = 0; ind < 5; ind++) {
+      if (ind >= 3) {
+        // break;
+        continue;
+      }
+      console.log(ind);
+    }
+    index++;
+  } */
+
+  let index = 0;
+  bucle01: do {
+    console.log(`outer = ${index}`);
+    bucle02: for (let ind = 0; ind < 5; ind++) {
+      if (ind === 3) {
+        // break bucle01;
+        continue bucle01; // PELIGROSO
+      }
+      console.log(`inner = ${ind}`);
+    }
+    index++;
+  } while (index < 3);
+
+  // console.log(battleLog);
 }
 
 attackBtn.addEventListener('click', attackHandler);
