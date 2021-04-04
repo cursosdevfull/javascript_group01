@@ -65,7 +65,9 @@ startBtn.addEventListener('click', () => {
     winner = getWinner(computerChoice);
   }
 
-  let message = `Su elección: ${playerChoice}, la elección de la computadora: ${computerChoice}.\nResultado = `;
+  let message = `Su elección: ${
+    playerChoice || DEFAULT_USER_CHOICE
+  }, la elección de la computadora: ${computerChoice}.\nResultado = `;
 
   if (winner === RESULT_DRAW) {
     message += 'Empate';
