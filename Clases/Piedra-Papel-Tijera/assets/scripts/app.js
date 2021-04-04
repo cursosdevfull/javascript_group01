@@ -8,7 +8,13 @@ const RESULT_DRAW = 'DRAW';
 const RESULT_PLAYER_WIN = 'PLAYER_WIN';
 const RESULT_COMPUTER_WIN = 'COMPUTER_WIN';
 
-const getPlayerChoice = function () {
+/* const sum = function (a, b) {
+  return a + b;
+};
+
+const sum2 = (a, b) => a + b; */
+
+const getPlayerChoice = () => {
   const selection = prompt(
     `Elija ${ROCK}, ${PAPER} o ${SCISSOR}`
   ).toUpperCase();
@@ -24,14 +30,22 @@ const getPlayerChoice = function () {
   return selection;
 };
 
-const getComputerChoice = function () {
+const getComputerChoice = () => {
   const randomValue = Math.random();
 
   return randomValue < 0.34 ? ROCK : randomValue < 0.67 ? PAPER : SCISSOR;
 };
 
-const getWinner = function (cChoice, pChoice) {
-  if (cChoice === pChoice) {
+const getWinner = (cChoice, pChoice) =>
+  cChoice === pChoice
+    ? RESULT_DRAW
+    : (pChoice === ROCK && cChoice === SCISSOR) ||
+      (pChoice === PAPER && cChoice === ROCK) ||
+      (pChoice === SCISSOR && cChoice === PAPER)
+    ? RESULT_PLAYER_WIN
+    : RESULT_COMPUTER_WIN;
+
+/*   if (cChoice === pChoice) {
     return RESULT_DRAW;
   } else if (
     (pChoice === ROCK && cChoice === SCISSOR) ||
@@ -41,12 +55,11 @@ const getWinner = function (cChoice, pChoice) {
     return RESULT_PLAYER_WIN;
   } else {
     return RESULT_COMPUTER_WIN;
-  }
-};
+  } */
 
 let gameIsRunning = false;
 
-startBtn.addEventListener('click', function () {
+startBtn.addEventListener('click', () => {
   if (gameIsRunning) {
     return;
   }
