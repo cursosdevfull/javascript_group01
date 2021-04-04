@@ -69,8 +69,17 @@ startBtn.addEventListener('click', () => {
   const playerChoice = getPlayerChoice();
   const computerChoice = getComputerChoice();
   const winner = getWinner(computerChoice, playerChoice);
-  console.log('player', playerChoice);
-  console.log('computer', computerChoice);
-  console.log(winner);
+
+  let message = `Su elección: ${playerChoice}, la elección de la computadora: ${computerChoice}.\nResultado = `;
+
+  if (winner === RESULT_DRAW) {
+    message += 'Empate';
+  } else if (winner === RESULT_PLAYER_WIN) {
+    message += 'Usted ganó';
+  } else {
+    message += 'La computadora ganó';
+  }
+
+  alert(message);
   gameIsRunning = false;
 });
