@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DOM Interacción</title>
+    <script src="app.js" defer></script>
+    <style>
+      .inputBg {
+        border: 0px solid transparent;
+        line-height: 30px;
+        padding: 10px 5px;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .inputBgNew {
+        border: 0px solid transparent;
+        line-height: 30px;
+        padding: 10px 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      .red_bg {
+        background-color: red;
+      }
+
+      .visible {
+        display: block;
+      }
+
+      .invisible {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <header><h1 id="main-title">Navegando en el DOM</h1></header>
+    <section>
+      <ul>
+        <li>Item 1</li>
+        <li class="list-item">Item 2</li>
+        <li class="list-item">Item 3</li>
+      </ul>
+    </section>
+    <input type="text" value="default text" id="search" class="inputBg" />
+    <button>aparecer/desaparecer</button>
+  </body>
+</html>
