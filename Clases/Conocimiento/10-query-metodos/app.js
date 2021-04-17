@@ -1,19 +1,6 @@
-const section = document.querySelector('section');
-// section.style.backgroundColor = 'blue';
-section.className = 'red_bg visible';
+const ul = document.querySelector('ul');
+// ul.innerHTML = ul.innerHTML + '<li>Item 4</li>';
+ul.innerHTML += '<li>Item 4</li>';
 
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
-  /*   if (section.className === 'red_bg visible') {
-    section.className = 'red_bg invisible';
-  } else {
-    section.className = 'red_bg visible';
-  } */
-  /*   if (section.className === 'red_bg visible') {
-    section.classList.add('invisible');
-  } else {
-    section.classList.remove('invisible');
-  } */
-
-  section.classList.toggle('invisible');
-});
+const div = document.querySelector('div');
+div.insertAdjacentHTML('afterend', 'texto');
