@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DOM Interacción</title>
+    <script src="app.js" defer></script>
+    <style>
+      .inputBg {
+        border: 0px solid transparent;
+        line-height: 30px;
+        padding: 10px 5px;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .inputBgNew {
+        border: 0px solid transparent;
+        line-height: 30px;
+        padding: 10px 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <header><h1 id="main-title">Navegando en el DOM</h1></header>
+    <ul>
+      <li>Item 1</li>
+      <li class="list-item">Item 2</li>
+      <li class="list-item">Item 3</li>
+    </ul>
+    <input type="text" value="default text" id="search" class="inputBg" />
+    <p id="user-logged" class="user-admin">Hola Carmela</p>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Películas favoritas</title>
+    <link rel="stylesheet" href="assets/styles/app.css" />
+    <script src="assets/scripts/app.js" defer></script>
+  </head>
+  <body>
+    <div id="backdrop"></div>
+    <div class="modal" id="add-modal">
+      <div class="modal__content">
+        <label for="title">Título película</label>
+        <input type="text" name="title" id="title" />
+        <label for="image-url">URL Imagen</label>
+        <input type="text" name="image-url" id="image-url" />
+        <label for="rating">Tu puntuación</label>
+        <input
+          type="number"
+          step="1"
+          max="5"
+          min="1"
+          name="rating"
+          id="rating"
+        />
+      </div>
+      <div class="modal__actions">
+        <button class="btn btn--passive">Cancelar</button>
+        <button class="btn btn--success">Agregar</button>
+      </div>
+    </div>
+    <div class="modal" id="delete-modal">
+      <h2 class="modal__title">¿Está seguro?</h2>
+      <p class="modal__content">
+        ¿Está seguro de querer eliminar? no se puede deshacer
+      </p>
+      <div class="modal__actions">
+        <button class="btn btn--passive">No (Cancelar)</button>
+        <button class="btn btn--danger">Sí</button>
+      </div>
+    </div>
+
+    <header>
+      <h1>Películas favoritas</h1>
+      <button>Agregar película</button>
+    </header>
+
+    <main>
+      <section id="entry-text" class="card">
+        <p>Tu propia base de datos</p>
+      </section>
+      <ul id="movie-list"></ul>
+    </main>
+  </body>
+</html>
