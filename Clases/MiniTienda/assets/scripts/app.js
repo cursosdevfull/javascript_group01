@@ -12,6 +12,38 @@ class Product {
   }
 }
 
+class ProductItem {
+  constructor(product) {
+    this.product = product;
+  }
+
+  addToCart() {
+    console.log('adding product to cart');
+    console.log(this.product);
+  }
+
+  render() {
+    const prodEl = document.createElement('li');
+    prodEl.className = 'product-item';
+    prodEl.innerHTML = `
+    <div>
+      <img src="${this.product.imageUrl}" alt="${this.product.title}">
+      <div class="product-item__content">
+        <h2>${this.product.title}</h2>
+        <h3>S/.${this.product.price} // US\$${
+      Math.floor((this.product.price / 3.8) * 100) / 100
+    }</h3>
+        <p>${this.product.description}</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+    `;
+    const addCartButton = prodEl.querySelector('button');
+    addCartButton.addEventListener('click', this.addToCart.bind(this));
+    return prodEl;
+  }
+}
+
 class ProductList {
   products = [
     new Product(
@@ -33,19 +65,8 @@ class ProductList {
     const prodList = document.createElement('ul');
     prodList.className = 'product-list';
     for (const prod of this.products) {
-      const prodEl = document.createElement('li');
-      prodEl.className = 'product-item';
-      prodEl.innerHTML = `
-      <div>
-        <img src="${prod.imageUrl}" alt="${prod.title}">
-        <div class="product-item__content">
-          <h2>${prod.title}</h2>
-          <h3>S/.${prod.price}</h3>
-          <p>${prod.description}</p>
-          <button>Add to Cart</button>
-        </div>
-      </div>
-      `;
+      const productItem = new ProductItem(prod);
+      const prodEl = productItem.render();
       prodList.append(prodEl);
     }
     renderHook.append(prodList);
@@ -54,3 +75,38 @@ class ProductList {
 
 const productList = new ProductList();
 productList.render();
+
+/* class Person {
+  name;
+  lastname;
+}
+
+
+
+const nameCustomer = document.getElementById('name');
+const lastnameCustomer = document.getElementById('lastname');
+const btnSend = document.getElementById('send');
+
+const listPersons = [];
+
+const addPerson = () => {
+  if (
+    nameCustomer.value.trim() === '' ||
+    lastnameCustomer.value.trim() === ''
+  ) {
+    return;
+  }
+
+  const person = new Person();
+  person.name = nameCustomer.value;
+  person.lastname = lastnameCustomer.value;
+
+  listPersons.push(person);
+  console.log(listPersons);
+
+  nameCustomer.value = '';
+  lastnameCustomer.value = '';
+};
+
+btnSend.addEventListener('click', addPerson);
+ */
