@@ -54,11 +54,12 @@ const sendHttpRequest = (method, url, data) => {
 
 const fetchPosts = async () => {
   try {
-    const responseData = await axios.get(
+    const responseData = await sendHttpRequest(
+      'GET',
       'https://jsonplaceholder.typicode.com/posts'
     );
 
-    const listOfPosts = responseData.data;
+    const listOfPosts = responseData;
     for (const post of listOfPosts) {
       const postEl = document.importNode(postTemplate.content, true);
       postEl.querySelector('h2').textContent = post.title.toUpperCase();
@@ -100,9 +101,3 @@ postList.addEventListener('click', (evt) => {
     );
   }
 });
-
-const usersSystem = ['marco', 'julia', 'pedro', 'javier', 'carmen'];
-const usersMarketing = ['marco', 'estela', 'alfonso'];
-
-const difference = _.difference(usersSystem, usersMarketing);
-console.log(difference);
