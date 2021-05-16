@@ -11,7 +11,7 @@ exports.createElement = (type, text, className) => {
   return newElement;
 };
 
-exports.validateInput = (text, notEmpty, isNumber) => {
+const validateInput = (text, notEmpty, isNumber) => {
   // Validate user input with two pre-defined rules
   if (!text) {
     return false;
@@ -23,4 +23,12 @@ exports.validateInput = (text, notEmpty, isNumber) => {
     return false;
   }
   return true;
+};
+
+exports.checkAndGenerate = (name, age) => {
+  if (!validateInput(name, true, false) || !validateInput(age, false, true)) {
+    return false;
+  }
+
+  return this.generateText(name, age);
 };
