@@ -1,69 +1,83 @@
 const btnSave = document.getElementById('button-save');
 const btnRetrieve = document.getElementById('button-retrieve');
+const btnRetrieveAll = document.getElementById('button-retrieve-all');
 const btnDelete = document.getElementById('button-delete');
+const btnUpdate = document.getElementById('button-update');
 
-const saveInLocalStorage = () => {
-  localStorage.setItem('userId', 20);
-  localStorage.setItem('user', JSON.stringify({ name: 'Claudia' }));
+const dbRequest = indexedDB.open('ProductsDB', 1);
+
+let db;
+
+const addProduct = (product) => {
+  const productStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  productStore.add(product);
 };
 
-const retrieveFromLocalStorage = () => {
-  const userId = localStorage.getItem('userId');
-  const user = JSON.parse(localStorage.getItem('user'));
+const getProduct = (productId) => {
+  const productStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  const request = productStore.get(productId);
 
-  console.log('userId', userId);
-  console.log('user', user);
+  request.onsuccess = (evt) => console.log(request.result);
 };
 
-const deleteFromLocalStorage = () => {
-  localStorage.clear();
-  //localStorage.removeItem('userId');
+const deleteProduct = (productId) => {
+  const productStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  const request = productStore.delete(productId);
+
+  request.onsuccess = (evt) => console.log(request.result);
 };
 
-const saveInCookies = () => {
-  const expiresDate = new Date();
-  expiresDate.setTime(expiresDate.getTime() + 60000);
-  document.cookie = 'userId=20; max-age=60';
-  document.cookie =
-    'user=' +
-    JSON.stringify({ name: 'Claudia' }) +
-    '; expires=' +
-    expiresDate.toGMTString();
+const getProductAll = () => {
+  const productStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  const request = productStore.getAll();
+
+  request.onsuccess = (evt) => console.log(request.result);
 };
 
-const getListCookies = (accum, pair) => {
-  const pairValue = pair.split('=');
-  if (!accum[pairValue[0]]) {
-    accum[pairValue[0]] = pairValue[1];
-  }
-  return accum;
+const updateProduct = (productId, newTitle) => {
+  const productStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  const request = productStore.get(productId);
+
+  request.onsuccess = (evt) => {
+    const data = evt.target.result;
+    data.title = newTitle;
+
+    const requestUpdate = productStore.put(data);
+    requestUpdate.onsuccess = (evt) => console.log('Product updated');
+  };
 };
 
-const getCookie = (nameCookie) => {
-  const pairCookies = document.cookie.split(';').map((el) => el.trim());
-  const cookies = pairCookies.reduce(getListCookies, {});
-
-  return cookies[nameCookie];
+dbRequest.onsuccess = (evt) => {
+  db = evt.target.result;
+  console.log('onsuccess');
 };
 
-const retrieveFromCookies = () => {
-  const userId = getCookie('userId');
-  const user = getCookie('user');
+dbRequest.onupgradeneeded = (evt) => {
+  db = evt.target.result;
 
-  console.log('userId', userId);
-  console.log('user', user);
+  const objectStore = db.createObjectStore('products', { keyPath: 'id' });
+
+  objectStore.transaction.oncomplete = (evt) => {
+    addProduct({ id: 'p1', title: 'Product 01' });
+    addProduct({ id: 'p2', title: 'Product 02' });
+    addProduct({ id: 'p3', title: 'Product 03' });
+  };
 };
 
-const deleteCookie = (nameCookie) => {
-  const expiresDate = new Date();
-  expiresDate.setTime(expiresDate.getTime() - 1000);
-  document.cookie = nameCookie + '= ; expires=' + expiresDate.toGMTString();
-};
-
-const deleteFromCookies = () => {
-  deleteCookie('user');
-};
-
-btnSave.addEventListener('click', saveInCookies);
-btnRetrieve.addEventListener('click', retrieveFromCookies);
-btnDelete.addEventListener('click', deleteFromCookies);
+btnRetrieve.addEventListener('click', getProduct.bind(this, 'p2'));
+btnRetrieveAll.addEventListener('click', getProductAll);
+btnDelete.addEventListener('click', deleteProduct.bind(this, 'p3'));
+btnUpdate.addEventListener(
+  'click',
+  updateProduct.bind(this, 'p1', 'New Title')
+);
