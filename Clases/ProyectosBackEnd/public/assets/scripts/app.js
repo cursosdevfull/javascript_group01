@@ -248,7 +248,7 @@ class App {
   static listProjects = [];
 
   static async init() {
-    this.listProjects = await APIHelper.get('http://localhost:3000/project');
+    this.listProjects = await APIHelper.get('/project');
 
     console.log(this.listProjects);
 
